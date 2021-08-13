@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=ItemRepository::class)
  */
@@ -33,9 +34,10 @@ class Item
     private $date_created;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne (targetEntity="App\Entity\User", inversedBy="items")
      */
     private $author;
+
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -88,17 +90,7 @@ class Item
         return $this;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
 
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
 
     public function getImage(): ?string
     {
@@ -123,4 +115,18 @@ class Item
 
         return $this;
     }
+
+    public function getAuthor(): ?object
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+
 }
